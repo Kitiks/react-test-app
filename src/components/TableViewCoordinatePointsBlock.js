@@ -12,7 +12,7 @@ const TableViewCoordinatePointsBlock = ({ coordinates }) => {
     return (
         <table className="table points-table">
             <thead><tr><th>Широта</th><th>Долгота</th><th>Яндекс карты</th><th>Google карты</th></tr></thead>
-            {coordinates.length !== 0 && coordinates.map((row, indexRow) =>
+            <tbody>{coordinates.length !== 0 && coordinates.map((row, indexRow) =>
                 <tr key={indexRow}>
                     <td>{row[0]}</td>
                     <td>{row[1]}</td>
@@ -20,6 +20,7 @@ const TableViewCoordinatePointsBlock = ({ coordinates }) => {
                     <td><a href={getGoogleMapLink({ x: row[0], y: row[1] })}>Google ссылка</a></td>
                 </tr>
             )}
+            </tbody>
         </table>
     )
 }

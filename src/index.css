@@ -3,7 +3,11 @@
 }
 
 .input-form>button {
-    margin: 15px 0px;
+    margin: 15px 15px 15px 0px;
+}
+
+.input-form>input {
+    margin: 5px 0px;
 }
 
 .points-table {
