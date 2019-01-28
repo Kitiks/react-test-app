@@ -8,10 +8,17 @@ const getGoogleMapLink = (coordinate) => {
     return `https://www.google.com/maps/search/?api=1&query=${coordinate.x},${coordinate.y}`
 }
 
-const TableViewCoordinatePointsBlock = ({ coordinates }) => {
+const TableViewCoordinatePointsBlock = ({ coordinates, sortByLatitude, sortByLongitude }) => {
     return (
         <table className="table points-table">
-            <thead><tr><th>Широта</th><th>Долгота</th><th>Яндекс карты</th><th>Google карты</th></tr></thead>
+            <thead>
+                <tr>
+                    <th><span className="sort-header" onClick={() => sortByLatitude()}>Широта</span></th>
+                    <th><span className="sort-header" onClick={() => sortByLongitude()}>Долгота</span></th>
+                    <th>Яндекс карты</th>
+                    <th>Google карты</th>
+                </tr>
+            </thead>
             <tbody>{coordinates.length !== 0 && coordinates.map((row, indexRow) =>
                 <tr key={indexRow}>
                     <td>{row[0]}</td>

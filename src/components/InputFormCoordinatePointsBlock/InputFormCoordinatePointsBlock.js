@@ -21,13 +21,13 @@ class InputFormCoordinatePointsBlock extends React.Component {
             case 'latitude':
                 latitudeValid = value.match(regExpr) && (value >= -90 && value <= 90)
                 fieldValidationErrors.latitude = latitudeValid ? '' : 'Неправильно установлена широта.'
-                break;
+                break
             case 'longitude':
                 longitudeValid = value.match(regExpr) && (value >= -180 && value <= 180)
                 fieldValidationErrors.longitude = longitudeValid ? '' : 'Неправильно установлена долгота.'
-                break;
+                break
             default:
-                break;
+                break
         }
         this.setState({
             formErrors: fieldValidationErrors,

@@ -13,3 +13,12 @@
 .points-table {
     margin: 15px 0px;
 }
+
+.sort-header {
+    text-decoration: underline;
+}
+
+.sort-header:hover {
+    cursor: pointer;
+    color: #0069d9;
+}
