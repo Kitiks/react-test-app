@@ -1,6 +1,7 @@
 import React from 'react'
 import InputFormCoordinatePointsBlock from './InputFormCoordinatePointsBlock/InputFormCoordinatePointsBlock'
 import TableViewCoordinatePointsBlock from './TableViewCoordinatePointsBlock'
+import { distanceBetweenPoints } from '../mapUtils/mapPointsUtil'
 
 class CoordinatePointsBlock extends React.Component {
     state = {
@@ -37,6 +38,19 @@ class CoordinatePointsBlock extends React.Component {
         this.setState({ longitudeSortingDesc: !this.state.longitudeSortingDesc, coordinates: sortableCoordinates })
     }
 
+    removeExcessPoints = () => {
+        let newCoordinates = this.state.coordinates
+        for (let i = 0; i < newCoordinates.length; i++) {
+            let count = 0
+            for (let j = 0; j < newCoordinates.length; j++)
+                if (distanceBetweenPoints(newCoordinates[i], newCoordinates[j]) > 100000)
+                    count++
+            if (count === newCoordinates.length - 1)
+                newCoordinates.splice(i, 1)
+        }
+        this.setState({ coordinates: newCoordinates })
+    }
+
     render() {
         return (
             <div className="container">
@@ -47,6 +61,7 @@ class CoordinatePointsBlock extends React.Component {
                             pointAdd={this.pointAdd}
                             pointDelete={this.pointDelete}
                         />
+                        <button className="btn btn-primary" onClick={() => { this.removeExcessPoints() }}>Убрать лишние</button>
                     </div>
                     <div className="col-lg-6">
                         <TableViewCoordinatePointsBlock
