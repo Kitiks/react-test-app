@@ -1,13 +1,15 @@
 import React from 'react'
-import InputFormCoordinatePointsBlock from './InputFormCoordinatePointsBlock/InputFormCoordinatePointsBlock'
-import TableViewCoordinatePointsBlock from './TableViewCoordinatePointsBlock'
-import { distanceBetweenPoints } from '../mapUtils/mapPointsUtil'
+import InputFormCoordinatePointsBlock from '../InputFormCoordinatePointsBlock/InputFormCoordinatePointsBlock'
+import TableViewCoordinatePointsBlock from '../TableViewCoordinatePointsBlock/TableViewCoordinatePointsBlock'
+import { distanceBetweenPoints } from '../../mapUtils/mapPointsUtil'
+import MapBlock from '../MapBlock/MapBlock'
 
 class CoordinatePointsBlock extends React.Component {
     state = {
         coordinates: [],
         latitudeSortingDesc: true,
         longitudeSortingDesc: true,
+        showGeoObjects: false,
     }
 
     process = (name) => {
@@ -16,7 +18,8 @@ class CoordinatePointsBlock extends React.Component {
 
     pointAdd = (point) => {
         let newCoordinates = this.state.coordinates
-        newCoordinates.push(point)
+        if (newCoordinates.some(element => element[0] === point[0] && element[1] === point[1])) return
+        else newCoordinates.push(point)
         this.setState({ coordinates: newCoordinates })
     }
 
@@ -51,6 +54,10 @@ class CoordinatePointsBlock extends React.Component {
         this.setState({ coordinates: newCoordinates })
     }
 
+    processGeoObjects = () => {
+        this.setState({ showGeoObjects: !this.state.showGeoObjects })
+    }
+
     render() {
         return (
             <div className="container">
@@ -62,6 +69,7 @@ class CoordinatePointsBlock extends React.Component {
                             pointDelete={this.pointDelete}
                         />
                         <button className="btn btn-primary" onClick={() => { this.removeExcessPoints() }}>Убрать лишние</button>
+                        <button className="btn btn-primary" onClick={() => { this.processGeoObjects() }}>{this.state.showGeoObjects ? 'Скрыть геообъеты' : 'Отобразить геообъеты'}</button>
                     </div>
                     <div className="col-lg-6">
                         <TableViewCoordinatePointsBlock
@@ -69,6 +77,11 @@ class CoordinatePointsBlock extends React.Component {
                             sortByLatitude={this.sortByLatitude}
                             sortByLongitude={this.sortByLongitude}
                         />
+                    </div>
+                </div>
+                <div className="row justify-content-center">
+                    <div className="col-lg-8">
+                        <MapBlock coordinates={this.state.coordinates} showGeoObjects={this.state.showGeoObjects} />
                     </div>
                 </div>
             </div>

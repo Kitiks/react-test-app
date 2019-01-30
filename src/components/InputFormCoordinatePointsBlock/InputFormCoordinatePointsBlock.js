@@ -46,6 +46,10 @@ class InputFormCoordinatePointsBlock extends React.Component {
         this.setState({ [name]: value }, () => { this.validateField(name, value) })
     }
 
+    errorClass(error) {
+        return (error.length === 0 ? '' : 'is-invalid');
+    }
+
     render() {
         return (
             <div className="form-group input-form">
@@ -62,7 +66,7 @@ class InputFormCoordinatePointsBlock extends React.Component {
                 <input
                     type="number"
                     id="latitudeText"
-                    className="form-control"
+                    className={`form-control ${this.errorClass(this.state.formErrors.latitude)}`}
                     name="latitude"
                     defaultValue={this.state.latitude}
                     onChange={this.handleUserInput}
@@ -71,7 +75,7 @@ class InputFormCoordinatePointsBlock extends React.Component {
                 <input
                     type="number"
                     id="longitudeText"
-                    className="form-control"
+                    className={`form-control ${this.errorClass(this.state.formErrors.longitude)}`}
                     name="longitude"
                     defaultValue={this.state.longitude}
                     onChange={this.handleUserInput}

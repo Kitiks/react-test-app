@@ -3,7 +3,11 @@
 }
 
 .input-form>button {
-    margin: 15px 15px 15px 0px;
+    margin: 15px 15px 0px 0px;
+}
+
+.col-lg-6>button {
+    margin: 0px 15px 15px 0px;
 }
 
 .input-form>input {
@@ -21,4 +25,8 @@
 .sort-header:hover {
     cursor: pointer;
     color: #0069d9;
+}
+
+.map {
+    margin: 10px 0px;
 }
